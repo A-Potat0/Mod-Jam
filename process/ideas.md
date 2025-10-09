@@ -10,7 +10,7 @@
 8. frog can jump (instead of shooting their tongue the frog jumps to get to the fly, but...? )
 9. vegetarian frog (the frog only eats the grapes that grow at the top of the screen. if you eat a fly the frog is verry unhappy and you loose)
 10. flys are part of a gang (the more flys you eat the more danger you are in and the more apear. instead of side to side, the flys come twards you. be carful)
-11. crossy tongue (you try to avoid the flys to get to the other side)
+11. crossy tongue (you try to avoid the flys to get to the other side. when you reach the top of the canvas it increases)
 12. the frog is a trafic officer (the frog uses their tongue to stop the flys from coliding with other flys that crosss the intersection)
 13. the flys have a restraning order against the frog (if the frog eats a fly, the police are called. (in real life?))
 14. spy fly (one of the flys is on your side gathering intel for the frog team. be carfull not to do freindly fire)
