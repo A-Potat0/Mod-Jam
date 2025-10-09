@@ -27,7 +27,13 @@
     - if you touch the wall you wrap arround
     - if you touch your tongue you take 1 - 5 scpre loss depending on lenght of tongue
     - when you catch a fly or hit your own tongue, the screen flashes and your tongue gets reset
-    -
+>theme combos
+    - when the same theme is goten multiple times add multiplyer to the score
+        - adds more multyplier for rarer themes
+
+# to fix in the current version
+> dont let the flies touch the ceeling. it looks weird
+> make the frog start in the center
 
 # Mod Jam ideas
 
