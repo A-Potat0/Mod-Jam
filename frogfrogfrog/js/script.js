@@ -15,8 +15,37 @@
 
 "use strict";
 
+/** 
+ * Game over state
+*/
+let gameOver = false;
+
 /**
- * set of variables used throught the project
+ * Current Score and score paramitters
+ */
+let score = -4;
+let scoreX = 10;
+let scoreY = 10;
+// let scoreAlignX = "LEFT";
+// let scoreAlignY = "TOP";
+
+/**
+ * fly rarity
+ */
+let rarity = 1
+
+/**
+ * fly paramitters <--------------------------------- use this and make more
+ */
+let flyX = 0;
+let flyY = 200;
+let flySize = 8;
+let flySpeed = 3;
+
+
+
+/**
+ * the starting background and theme of the project
  */
 //the starting arangment
 let arrangement = 1;
@@ -71,8 +100,15 @@ const frog = {
 const fly = {
     x: 0,
     y: 200, // Will be random
-    size: 10,
+    size: 8,
     speed: 3
+};
+
+const fly2 = {
+    x: -10,
+    y: 200, // Will be random
+    size: 10,
+    speed: 2.5
 };
 
 /**
@@ -82,7 +118,7 @@ function setup() {
     createCanvas(640, 480);
 
     // Give the fly its first random position
-    resetFly();
+    resetFly(fly);
 }
 
 /**
@@ -90,15 +126,60 @@ function setup() {
  */
 function draw() {
     theme();
-    randomColorTheme()
-    moveFly();
-    drawFly();
+    randomColorTheme();
+    scoreConditionnals();
     moveFrog();
     moveTongue();
+    moveFly(fly);
+    checkTongueFlyOverlap(fly);
     drawFrog();
-    checkTongueFlyOverlap();
+    drawFly(fly);
+    
+}
 
-
+/**
+ * change what is in the game depending on current score
+ */
+function scoreConditionnals() {
+    if (score <= -100) { // activete if score is lower that 5 <---- change score and make a loose function -25? maby
+        displayScoreDeath()
+        print("game over")
+    }
+    if (score <= -25) {
+        displayScoreDeath()
+    }
+    if (score >= 5) { // activete if score is higher that 5
+        displayScore()
+    }
+    if (score >= 20) { // activete if score is higher that 20
+        moveFly(fly2);
+        drawFly(fly2);
+        checkTongueFlyOverlap(fly2);
+    }
+    if (score >= 100) {
+        displayScore()
+    }
+    if (score >= 500) {
+        displayScore()
+    }
+    if (score >= 1000){
+        displayScore()
+    }    
+    if (score >= 10000) {
+        displayScore()
+    }     
+    if (score >= 100000){
+        displayScore()
+    }     
+    if (score >= 1000000){
+        displayScore()
+    }     
+    if (score >= 10000000){
+        displayScore()
+    }    
+    // if (score >= 10000000) { // activete if score is higher than bla bla bla  <----- need to make a win function
+    // }
+    //     win Game
 }
 
 /**
@@ -207,19 +288,20 @@ function randomColorTheme() {
  * Moves the fly according to its speed
  * Resets the fly if it gets all the way to the right
  */
-function moveFly() {
+function moveFly(fly) {
     // Move the fly
     fly.x += fly.speed;
     // Handle the fly going off the canvas
     if (fly.x > width) {
-        resetFly();
+        resetFly(fly);
+        score = score - ceil(random(-0.2,1.1));
     }
 }
 
 /**
  * Draws the fly as a black circle
  */
-function drawFly() {
+function drawFly(fly) {
     push();
     noStroke();
     fill("#000000");
@@ -230,9 +312,9 @@ function drawFly() {
 /**
  * Resets the fly to the left with a random y
  */
-function resetFly() {
-    fly.x = 0;
-    fly.y = random(0, 300);
+function resetFly(fly) {
+    fly.x = -5;
+    fly.y = random(10, 300);
 }
 
 /**
@@ -297,20 +379,48 @@ function drawFrog() {
 }
 
 /**
+ * Display the score
+ */
+function displayScore() {
+  push();
+  textSize(48);
+  textStyle(BOLD);
+  textAlign(LEFT, TOP);
+  text((score), scoreX, scoreY);
+  pop();
+}
+
+/**
+ * Display the score (bad)
+ */
+function displayScoreDeath() {
+  push();
+  fill("red")
+  textSize(48 - (score * 2));
+  textStyle(BOLD);
+  textAlign(CENTER, CENTER);
+  text((score), width/2, height/2);
+  pop();
+}
+
+/**
  * Handles the tongue overlapping the fly
  */
-function checkTongueFlyOverlap() {
+function checkTongueFlyOverlap(fly) {
     // Get distance from tongue to fly
     const d = dist(frog.tongue.x, frog.tongue.y, fly.x, fly.y);
     // Check if it's an overlap
     const eaten = (d < frog.tongue.size/2 + fly.size/2);
     if (eaten) {
         // Reset the fly
-        resetFly();
+        resetFly(fly);
         // Bring back the tongue
         frog.tongue.state = "inbound";
         // change theme
-        arrangement = floor(random(1,12))
+        arrangement = floor(random(1,12));
+        // add to score
+        score = score + ceil(random(-0.1,1.2));
+        print(ceil(random(-0.1,1.2)))
     }
 }
 

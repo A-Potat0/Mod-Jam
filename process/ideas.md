@@ -1,9 +1,10 @@
 # to add to current mod jam
+
 > fly raraties
-    - there will be common flies
-        - they will do nothing
-        - they will increase the score by 0 - 2 if caugnt
-        - they will decrease the score by 0 - 1 if missed
+    <!-- - there will be common flies -->
+        <!-- - they will do nothing -->
+        <!-- - they will increase the score by 0 - 2 if caugnt -->
+        <!-- - they will decrease the score by 0 - 1 if missed -->
         - ~~they increase the combo by 1~~ 
     - there will be rare flies
         - they will change the background
@@ -17,6 +18,7 @@
         - they will increase score by 5 - 10 if caught
         - they will decrease score by 10 if missed
         - they will decrease score by 2 - 5 if they cause damage
+
 > tongue is snake
     - the whole board will be a grid
     - the flies will only move when the tongue moves
@@ -27,9 +29,17 @@
     - if you touch the wall you wrap arround
     - if you touch your tongue you take 1 - 5 scpre loss depending on lenght of tongue
     - when you catch a fly or hit your own tongue, the screen flashes and your tongue gets reset
->theme combos
+
+> theme combos
     - when the same theme is goten multiple times add multiplyer to the score
         - adds more multyplier for rarer themes
+
+> counter
+    <!-- - display counter -->
+    - the higher yoyr counter is the more things are added to the game
+        <!-- - you can only see the counter after having a scoor of 5 -->
+        - if you loose your score you loose game mechanicks
+    
 
 # to fix in the current version
 > dont let the flies touch the ceeling. it looks weird
