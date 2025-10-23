@@ -16,7 +16,7 @@
 "use strict";
 
 /** 
- * Game over state
+ * Game over state <----------- use this
 */
 let gameOver = false;
 
@@ -30,7 +30,7 @@ let scoreY = 10;
 // let scoreAlignY = "TOP";
 
 /**
- * fly rarity
+ * fly rarity <------------- use this
  */
 let rarity = 1
 
