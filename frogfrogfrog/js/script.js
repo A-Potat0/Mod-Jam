@@ -1,6 +1,7 @@
 /**
  * Frogfrogfrog
  * Pippin Barr
+ * Modded by "Anthony Patient"
  * 
  * A game of catching flies with your frog-tongue
  * 
@@ -32,15 +33,19 @@ let scoreY = 10;
 /**
  * fly rarity <------------- use this
  */
-let rarity = 1
+let rarity = 100
 
 /**
  * fly paramitters <--------------------------------- use this and make more
  */
-let flyX = 0;
-let flyY = 200;
-let flySize = 8;
-let flySpeed = 3;
+// let flyX = 0;
+// let flyY = 200;
+// let flySize = 8;
+// let flySpeed = 3;
+
+// let fly = undefined;
+
+let  flys = [];
 
 
 
@@ -97,19 +102,40 @@ const frog = {
 
 // Our fly
 // Has a position, size, and speed of horizontal movement
-const fly = {
+let fly = {
     x: 0,
     y: 200, // Will be random
     size: 8,
     speed: 3
 };
 
-const fly2 = {
-    x: -10,
-    y: 200, // Will be random
-    size: 10,
-    speed: 2.5
-};
+// const fly2 = {
+//     x: -10,
+//     y: 200, // Will be random
+//     size: 10,
+//     speed: 2.5
+// };
+
+// const fly3 = {
+//     x: -10,
+//     y: 200, // Will be random
+//     size: 14,
+//     speed: 1.9
+// };
+
+// const fly4 = {
+//     x: -10,
+//     y: 200, // Will be random
+//     size: 6,
+//     speed: 4.5
+// };
+
+// const fly5 = {
+//     x: -10,
+//     y: 200, // Will be random
+//     size: 16,
+//     speed: 1.5
+// };
 
 /**
  * Creates the canvas and initializes the fly
@@ -117,24 +143,59 @@ const fly2 = {
 function setup() {
     createCanvas(640, 480);
 
+    // Make the first fly
+    flys.push (createFly());
+
     // Give the fly its first random position
-    resetFly(fly);
+    // for (fly of flys) {
+        // resetFly(fly);
+    // }
+    
+}
+
+function createFly() {
+    const newFly = {
+    // Position and dimensions
+    x: -10,
+    y: 200, 
+    size: random(6,16),
+    // Colour
+    fill1: random(0,1),
+    fill2: random(0,1),
+    fill3: random(0,1),
+    // Movement
+    speed: 2
+    // {
+    //   x: map(fly.size, 6, 16, random(4,5), random(2,3)),
+    //   y: random(-10, 10)
+    // }
+  };
+  return newFly;
 }
 
 /**
  * calles the difrent function that it needs to draw on each frame
  */
 function draw() {
+
+    // for (fly of flys) {
+    //     moveFly(fly);
+    //     checkTongueFlyOverlap(fly);
+    //     drawFly(fly);
+    // }
+
     theme();
     randomColorTheme();
     scoreConditionnals();
     moveFrog();
     moveTongue();
+    drawFrog();
+
     moveFly(fly);
     checkTongueFlyOverlap(fly);
-    drawFrog();
     drawFly(fly);
     
+
 }
 
 /**
@@ -157,10 +218,17 @@ function scoreConditionnals() {
         checkTongueFlyOverlap(fly2);
     }
     if (score >= 100) {
-        displayScore()
+        moveFly(fly3);
+        drawFly(fly3);
+        checkTongueFlyOverlap(fly3);
+        moveFly(fly4);
+        drawFly(fly4);
+        checkTongueFlyOverlap(fly4);
     }
     if (score >= 500) {
-        displayScore()
+        moveFly(fly5);
+        drawFly(fly5);
+        checkTongueFlyOverlap(fly5);
     }
     if (score >= 1000){
         displayScore()
@@ -304,6 +372,7 @@ function moveFly(fly) {
 function drawFly(fly) {
     push();
     noStroke();
+    // fill(fill1,fill2,fill3);
     fill("#000000");
     ellipse(fly.x, fly.y, fly.size);
     pop();
@@ -313,8 +382,34 @@ function drawFly(fly) {
  * Resets the fly to the left with a random y
  */
 function resetFly(fly) {
-    fly.x = -5;
-    fly.y = random(10, 300);
+    if (rarity < 1){
+        fly.x = -5;
+        fly.y = random(10, 380);
+        fly.size = random(2,18); // <--------- special flys will be able to go to a size of 4
+        fly.speed = map(fly.size, 4, 20, random(4,5), random(2,3));
+        rarity = random(0, 100);
+        print(rarity)
+        print("LEGENDARY")
+    }
+    else if (rarity < 20){
+        fly.x = -5;
+        fly.y = random(10, 380);
+        fly.size = random(4,18); // <--------- special flys will be able to go to a size of 4
+        fly.speed = map(fly.size, 4, 18, random(4,5), random(2,3));
+        rarity = random(0, 100);
+        print(rarity)
+        print("epic")
+    }
+    else {
+        fly.x = -5;
+        fly.y = random(10, 380);
+        fly.size = random(6,16); // <--------- special flys will be able to go to a size of 4
+        fly.speed = map(fly.size, 6, 16, random(4,5), random(2,3));
+        rarity = random(0, 100);
+        print(rarity)
+    }
+    
+
 }
 
 /**
@@ -420,7 +515,7 @@ function checkTongueFlyOverlap(fly) {
         arrangement = floor(random(1,12));
         // add to score
         score = score + ceil(random(-0.1,1.2));
-        print(ceil(random(-0.1,1.2)))
+        // print(ceil(random(-0.1,1.2)))
     }
 }
 

@@ -18,6 +18,8 @@
         - they will increase score by 5 - 10 if caught
         - they will decrease score by 10 if missed
         - they will decrease score by 2 - 5 if they cause damage
+    -there is a devil fly when your score is negative
+        -the devil fly lowers your score by 10 - 30
 
 > tongue is snake
     - the whole board will be a grid
@@ -39,6 +41,7 @@
     - the higher yoyr counter is the more things are added to the game
         <!-- - you can only see the counter after having a scoor of 5 -->
         - if you loose your score you loose game mechanicks
+    - if you have a score of x < 100 losing more score makes you lose the game
     
 
 # to fix in the current version
