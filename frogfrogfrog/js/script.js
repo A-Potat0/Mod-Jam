@@ -275,43 +275,54 @@ function scoreConditionnals() {
 function theme() {
 
     if (arrangement === 1) {
-        background(197, 100, 70)
+        background(65, 163, 47)
 
     }
+    // 65, 163, 47
+    // 232, 130, 47
+    // 152, 180, 47
+    // 255, 255, 56
+    // 198, 191, 50
+    // 123, 190, 50
+    // 65, 163, 47
+    // 65, 163, 47
+    // 65, 163, 47
+    // 65, 163, 47
+    // 65, 163, 47
     else if (arrangement === 2) {
-        background(152, 44, 68)
+        background(137, 90, 61)
 
     }
     else if (arrangement === 3) {
-        background(292, 100, 59)
+        background(102, 55, 46)
 
     }
     else if (arrangement === 4) {
-        background(152, 50, 50)
+        background(137, 100, 13)
 
     }
     else if (arrangement === 5) {
-        background(64, 100, 50)
+        background(179, 100, 13)
 
     }
     else if (arrangement === 6) {
-        background(126, 94, 33)
+        background(164, 100, 33)
 
     }
     else if (arrangement === 7) {
-        background(22, 78, 59)
+        background(20, 80, 50)
 
     }
     else if (arrangement === 8) {
-        background(158, 100, 41)
+        background(138, 100, 50)
 
     }
     else if (arrangement === 9) {
-        background(272, 87, 45)
+        background(194, 100, 61)
 
     }
     else if (arrangement === 10) {
-        background(87, 60, 48)
+        background(61, 100, 62)
 
     }
     //party theme
