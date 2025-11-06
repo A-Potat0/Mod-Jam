@@ -42,6 +42,7 @@
         <!-- - you can only see the counter after having a scoor of 5 -->
         - if you loose your score you loose game mechanicks
     - if you have a score of x < 100 losing more score makes you lose the game
+    - if you are in the negatives you ger on of 3? negative themes with their own raraties
     
 
 # to fix in the current version

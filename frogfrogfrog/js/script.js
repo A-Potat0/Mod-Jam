@@ -33,7 +33,7 @@ let scoreY = 10;
 /**
  * fly rarity <------------- use this
  */
-let rarity = 100
+// let rarity = 100
 
 /**
  * fly paramitters <--------------------------------- use this and make more
@@ -43,9 +43,9 @@ let rarity = 100
 // let flySize = 8;
 // let flySpeed = 3;
 
-// let fly = undefined;
+let fly1 = undefined;
 
-let  flys = [];
+let flies = [];
 
 
 
@@ -53,7 +53,7 @@ let  flys = [];
  * the starting background and theme of the project
  */
 //the starting arangment
-let arrangement = 1;
+let arrangement = 12;
 
 /**
  * party mode variables (mainly)
@@ -93,7 +93,7 @@ const frog = {
     tongue: {
         x: undefined,
         y: 480,
-        size: 20,
+        size: 30,
         speed: 20,
         // Determines how the tongue moves each frame
         state: "idle" // State can be: idle, outbound, inbound
@@ -102,40 +102,13 @@ const frog = {
 
 // Our fly
 // Has a position, size, and speed of horizontal movement
-let fly = {
-    x: 0,
-    y: 200, // Will be random
-    size: 8,
-    speed: 3
-};
-
-// const fly2 = {
-//     x: -10,
+// let fly = {
+//     x: 0,
 //     y: 200, // Will be random
-//     size: 10,
-//     speed: 2.5
+//     size: 8,
+//     speed: 3
 // };
 
-// const fly3 = {
-//     x: -10,
-//     y: 200, // Will be random
-//     size: 14,
-//     speed: 1.9
-// };
-
-// const fly4 = {
-//     x: -10,
-//     y: 200, // Will be random
-//     size: 6,
-//     speed: 4.5
-// };
-
-// const fly5 = {
-//     x: -10,
-//     y: 200, // Will be random
-//     size: 16,
-//     speed: 1.5
-// };
 
 /**
  * Creates the canvas and initializes the fly
@@ -143,34 +116,55 @@ let fly = {
 function setup() {
     createCanvas(640, 480);
 
+    colorMode(RGB);
+
+    fly1 = createFly()
     // Make the first fly
-    flys.push (createFly());
+    flies.push(createFly());
 
     // Give the fly its first random position
     // for (fly of flys) {
-        // resetFly(fly);
+    // resetFly(fly);
     // }
-    
+
 }
 
 function createFly() {
     const newFly = {
-    // Position and dimensions
-    x: -10,
-    y: 200, 
-    size: random(6,16),
-    // Colour
-    fill1: random(0,1),
-    fill2: random(0,1),
-    fill3: random(0,1),
-    // Movement
-    speed: 2
-    // {
-    //   x: map(fly.size, 6, 16, random(4,5), random(2,3)),
-    //   y: random(-10, 10)
-    // }
-  };
-  return newFly;
+        // Position and dimensions
+        x: -35,
+        y: random(10, 380),
+        size: {
+            legendary: random(6, 16),
+            epic: random(6, 16),
+            normal: random(6, 16),
+        },
+
+        // Colour
+        fill: {
+            a: random(0, 20),
+            b: random(0, 20),
+            c: random(0, 20),
+            d: random(20, 40),
+            e: random(20, 40),
+            f: random(20, 40),
+            g: random(40, 60),
+            h: random(40, 60),
+            i: random(40, 60),
+        },
+
+        // Movement
+        speed: {
+            x: {
+                legendary: random(4, 5),
+                epic: random(3, 4),
+                normal: random(2, 3),
+            },
+            y: random(-10, 10)
+        },
+        rarity: 100,
+    };
+    return newFly;
 }
 
 /**
@@ -178,11 +172,7 @@ function createFly() {
  */
 function draw() {
 
-    // for (fly of flys) {
-    //     moveFly(fly);
-    //     checkTongueFlyOverlap(fly);
-    //     drawFly(fly);
-    // }
+
 
     theme();
     randomColorTheme();
@@ -191,60 +181,89 @@ function draw() {
     moveTongue();
     drawFrog();
 
-    moveFly(fly);
-    checkTongueFlyOverlap(fly);
-    drawFly(fly);
-    
+    for (const fly of flies) {
+        moveFly(fly);
+        checkTongueFlyOverlap(fly);
+        drawFly(fly);
+    }
 
+    // moveFly(fly);
+    // checkTongueFlyOverlap(fly);
+    // drawFly(fly);
+
+    print(arrangement)
 }
 
 /**
  * change what is in the game depending on current score
  */
 function scoreConditionnals() {
+    if (score <= -1000) {
+        score = undefined
+    }
     if (score <= -100) { // activete if score is lower that 5 <---- change score and make a loose function -25? maby
-        displayScoreDeath()
-        print("game over")
+        print("game over");
+        flies.push(createFly());
+        flies.push(createFly());
+        flies.push(createFly());
+        flies.push(createFly());
+        flies.push(createFly());
     }
     if (score <= -25) {
-        displayScoreDeath()
+        displayScoreDeath();
     }
     if (score >= 5) { // activete if score is higher that 5
-        displayScore()
+        displayScore();
     }
-    if (score >= 20) { // activete if score is higher that 20
-        moveFly(fly2);
-        drawFly(fly2);
-        checkTongueFlyOverlap(fly2);
+    if (score <= 10) { // activete if score is higher that 20
+        flies[1] = (createFly());
     }
-    if (score >= 100) {
-        moveFly(fly3);
-        drawFly(fly3);
-        checkTongueFlyOverlap(fly3);
-        moveFly(fly4);
-        drawFly(fly4);
-        checkTongueFlyOverlap(fly4);
+    if (score <= 25) {
+        flies[2] = (createFly());
     }
-    if (score >= 500) {
-        moveFly(fly5);
-        drawFly(fly5);
-        checkTongueFlyOverlap(fly5);
+    if (score <= 35) {
+        flies[3] = (createFly());
     }
-    if (score >= 1000){
-        displayScore()
-    }    
+    if (score <= 45) {
+        flies[4] = (createFly());
+    }
+    if (score <= 55) {
+        flies[5] = (createFly());
+    }
+    if (score <= 65) {
+        flies[6] = (createFly());
+    }
+    if (score <= 75) {
+        flies[7] = (createFly());
+    }
+    if (score <= 85) {
+        flies[8] = (createFly());
+    }
+    if (score <= 100) {
+        flies[9] = (createFly());
+    }
+    if (score <= 500) {
+        flies[10] = (createFly());
+        flies[11] = (createFly());
+        flies[12] = (createFly());
+        flies[13] = (createFly());
+        flies[14] = (createFly());
+    }
+    if (score >= 1000) {
+        displayScore();
+    }
     if (score >= 10000) {
-        displayScore()
-    }     
-    if (score >= 100000){
-        displayScore()
-    }     
-    if (score >= 1000000){
-        displayScore()
-    }     
-    if (score >= 10000000){
-        displayScore()
-    }    
+        displayScore();
+    }
+    if (score >= 100000) {
+        displayScore();
+    }
+    if (score >= 1000000) {
+        displayScore();
+    }
+    if (score >= 10000000) {
+        displayScore();
+    }
     // if (score >= 10000000) { // activete if score is higher than bla bla bla  <----- need to make a win function
     // }
     //     win Game
@@ -256,74 +275,77 @@ function scoreConditionnals() {
 function theme() {
 
     if (arrangement === 1) {
-        background("#87ceeb")
+        background(197, 100, 70)
 
     }
     else if (arrangement === 2) {
-        background("#87eb99ff")
+        background(152, 44, 68)
 
     }
     else if (arrangement === 3) {
-        background("#eb87dcff")
+        background(292, 100, 59)
 
     }
     else if (arrangement === 4) {
-        background("#eb8787ff")
+        background(152, 50, 50)
 
     }
     else if (arrangement === 5) {
-        background("#e6eb87ff")
+        background(64, 100, 50)
 
     }
     else if (arrangement === 6) {
-        background("#87ebd4ff")
+        background(126, 94, 33)
 
     }
     else if (arrangement === 7) {
-        background("#9887ebff")
+        background(22, 78, 59)
 
     }
     else if (arrangement === 8) {
-        background("#cd87ebff")
+        background(158, 100, 41)
 
     }
     else if (arrangement === 9) {
-        background("#ebc187ff")
+        background(272, 87, 45)
 
     }
     else if (arrangement === 10) {
-        background("#4f6168ff")
+        background(87, 60, 48)
 
     }
     //party theme
-    else if (arrangement === 11) {
-        background(colorRed, colorGreen, colorBlue)
+    // else if (arrangement === 11) {
+    //     background(colorRed, colorGreen, colorBlue)
+
+    // }
+    else if (arrangement === 12) {
+        colorMode(RGB);
+        arrangement = 1
 
     }
-    // else if (arrangement === ) {
-    //     background("#87ceeb")
+    else if (arrangement === 13) {
+        colorMode(HSB);
+        arrangement = 1
 
-    // }
-    // else if (arrangement === ) {
-    //     background("#87ceeb")
+    }
+    else if (arrangement === 14) {
+        colorMode(HSL);
+        arrangement = 1
 
-    // }
-    // else if (arrangement === ) {
-    //     background("#87ceeb")
+    }
+    else if (arrangement === 11) {
+        background("#87ceeb")
 
-    // }
-    // else if (arrangement === ) {
-    //     background("#87ceeb")
+    }
 
-    // }
-    
 }
 
 /**
  * randomises the color for the party theme
  */
 function randomColorTheme() {
-        progressColorRed = progressColorRed += randomProgressRed
+    progressColorRed = progressColorRed += randomProgressRed
     progressColorGreen = progressColorGreen += randomProgressGreen
     progressColorBlue = progressColorBlue += randomProgressBlue
 
@@ -332,21 +354,21 @@ function randomColorTheme() {
     colorGreen = lerp(startColorGreen, targetColorGreen, progressColorGreen)
     colorBlue = lerp(startColorBlue, targetColorBlue, progressColorBlue)
 
-    if(progressColorRed >= 1){
+    if (progressColorRed >= 1) {
         startColorRed = targetColorRed;
-        targetColorRed = random(0,255);
+        targetColorRed = random(0, 255);
         progressColorRed = 0
         randomProgressRed = random(0.005, 0.05)
     }
-    if(progressColorGreen >= 1){
+    if (progressColorGreen >= 1) {
         startColorGreen = targetColorGreen;
-        targetColorGreen = random(0,255);
+        targetColorGreen = random(0, 255);
         progressColorGreen = 0
         randomProgressGreen = random(0.005, 0.05)
     }
-    if(progressColorBlue >= 1){
+    if (progressColorBlue >= 1) {
         startColorBlue = targetColorBlue;
-        targetColorBlue = random(0,255);
+        targetColorBlue = random(0, 255);
         progressColorBlue = 0
         randomProgressBlue = random(0.005, 0.05)
     }
@@ -358,11 +380,28 @@ function randomColorTheme() {
  */
 function moveFly(fly) {
     // Move the fly
-    fly.x += fly.speed;
+    if (fly.rarity < 1) {
+        fly.x += fly.speed.x.legendary;
+    }
+    else if (fly.rarity < 20) {
+        fly.x += fly.speed.x.epic;
+    }
+    else {
+        fly.x += fly.speed.x.normal;
+    }
+
     // Handle the fly going off the canvas
     if (fly.x > width) {
         resetFly(fly);
-        score = score - ceil(random(-0.2,1.1));
+        if (fly.rarity < 1) {
+            score = score - ceil(random(4.2, 10.4));
+        }
+        else if (fly.rarity < 20) {
+            score = score - ceil(random(1.2, 5.4));
+        }
+        else {
+            score = score - ceil(random(-0.2, 2.4));
+        }
     }
 }
 
@@ -370,45 +409,56 @@ function moveFly(fly) {
  * Draws the fly as a black circle
  */
 function drawFly(fly) {
-    push();
-    noStroke();
-    // fill(fill1,fill2,fill3);
-    fill("#000000");
-    ellipse(fly.x, fly.y, fly.size);
-    pop();
+    if (fly.rarity < 1) {
+        push();
+        noStroke();
+        fill(fly.fill.g, fly.fill.h, fly.fill.i);
+        ellipse(fly.x, fly.y, fly.size.legendary);
+        pop();
+    }
+    else if (fly.rarity < 20) {
+        push();
+        noStroke();
+        fill(fly.fill.d, fly.fill.e, fly.fill.f);
+        ellipse(fly.x, fly.y, fly.size.epic);
+        pop();
+    }
+    else {
+        push();
+        noStroke();
+        fill(fly.fill.a, fly.fill.b, fly.fill.c);
+        ellipse(fly.x, fly.y, fly.size.normal);
+        pop();
+    }
+
 }
 
 /**
  * Resets the fly to the left with a random y
  */
 function resetFly(fly) {
-    if (rarity < 1){
-        fly.x = -5;
-        fly.y = random(10, 380);
-        fly.size = random(2,18); // <--------- special flys will be able to go to a size of 4
-        fly.speed = map(fly.size, 4, 20, random(4,5), random(2,3));
-        rarity = random(0, 100);
-        print(rarity)
+    fly.x = -20;
+    fly.y = random(10, 380);
+
+    if (fly.rarity < 1) {
+        fly.size.legendary = random(2, 18);
+        fly.speed.x.legendary = map(fly.size.legendary, 4, 20, random(4, 5), random(2, 3));
+        // print(rarity)
         print("LEGENDARY")
     }
-    else if (rarity < 20){
-        fly.x = -5;
-        fly.y = random(10, 380);
-        fly.size = random(4,18); // <--------- special flys will be able to go to a size of 4
-        fly.speed = map(fly.size, 4, 18, random(4,5), random(2,3));
-        rarity = random(0, 100);
-        print(rarity)
+    else if (fly.rarity < 20) {
+        fly.size.epic = random(4, 18);
+        fly.speed.x.epic = map(fly.size.epic, 4, 18, random(4, 5), random(2, 3));
+        // print(rarity)
         print("epic")
     }
     else {
-        fly.x = -5;
-        fly.y = random(10, 380);
-        fly.size = random(6,16); // <--------- special flys will be able to go to a size of 4
-        fly.speed = map(fly.size, 6, 16, random(4,5), random(2,3));
-        rarity = random(0, 100);
-        print(rarity)
+
+        fly.size.normal = random(6, 16);
+        fly.speed.x.normal = map(fly.size.normal, 6, 16, random(4, 5), random(2, 3));
+        // print(rarity)
     }
-    
+    fly.rarity = random(0, 100);
 
 }
 
@@ -477,25 +527,25 @@ function drawFrog() {
  * Display the score
  */
 function displayScore() {
-  push();
-  textSize(48);
-  textStyle(BOLD);
-  textAlign(LEFT, TOP);
-  text((score), scoreX, scoreY);
-  pop();
+    push();
+    textSize(48);
+    textStyle(BOLD);
+    textAlign(LEFT, TOP);
+    text((score), scoreX, scoreY);
+    pop();
 }
 
 /**
  * Display the score (bad)
  */
 function displayScoreDeath() {
-  push();
-  fill("red")
-  textSize(48 - (score * 2));
-  textStyle(BOLD);
-  textAlign(CENTER, CENTER);
-  text((score), width/2, height/2);
-  pop();
+    push();
+    fill("red")
+    textSize(48 - (score * 2));
+    textStyle(BOLD);
+    textAlign(CENTER, CENTER);
+    text((score), width / 2, height / 2);
+    pop();
 }
 
 /**
@@ -505,16 +555,57 @@ function checkTongueFlyOverlap(fly) {
     // Get distance from tongue to fly
     const d = dist(frog.tongue.x, frog.tongue.y, fly.x, fly.y);
     // Check if it's an overlap
-    const eaten = (d < frog.tongue.size/2 + fly.size/2);
+    let eaten = undefined
+    if (fly.rarity < 1) {
+        eaten = (d < frog.tongue.size / 2 + fly.size.legendary / 2);
+    }
+    else if (fly.rarity < 20) {
+        eaten = (d < frog.tongue.size / 2 + fly.size.epic / 2);
+    }
+    else {
+        eaten = (d < frog.tongue.size / 2 + fly.size.normal / 2);
+    }
     if (eaten) {
         // Reset the fly
         resetFly(fly);
         // Bring back the tongue
         frog.tongue.state = "inbound";
         // change theme
-        arrangement = floor(random(1,12));
+        arrangement = floor(random(1, 15));
         // add to score
-        score = score + ceil(random(-0.1,1.2));
+        if (frog.tongue.state = "inbound") {
+            if (fly.rarity < 1) {
+                score = score + ceil(random(4.2, 9.4));
+            }
+            else if (fly.rarity < 20) {
+                score = score + ceil(random(1.2, 4.4));
+            }
+            else {
+                score = score + ceil(random(-0.2, 1.4));
+            }
+        }
+        else if (frog.tongue.state = "outbound") {
+            if (fly.rarity < 1) {
+                score = score + ceil(random(4.1, 9.2));
+            }
+            else if (fly.rarity < 20) {
+                score = score + ceil(random(1.1, 4.2));
+            }
+            else {
+                score = score + ceil(random(-0.1, 1.2));
+            }
+        }
+        else if (frog.tongue.state = "idle") {
+            if (fly.rarity < 1) {
+                score = score + ceil(random(-0.1, 2.2));
+            }
+            else if (fly.rarity < 20) {
+                score = score + ceil(random(-0.1, 1.2));
+            }
+            else {
+                score = score + ceil(random(-0.1, 0.2));
+            }
+        }
         // print(ceil(random(-0.1,1.2)))
     }
 }
@@ -527,3 +618,18 @@ function mousePressed() {
         frog.tongue.state = "outbound";
     }
 }
+
+/**
+ * rarity filter
+ * 
+ * if (fly.rarity < 1) {
+        
+    }
+    else if (fly.rarity < 20) {
+        
+    }
+    else {
+        
+    }
+ * 
+ */
